@@ -48,7 +48,7 @@ function Calculator() {
 
                 <div className='h-[80%] w-[75%] rounded-2xl mt-10 flex bg-[#fcfcfc]'>
                     <div className='flex-1 sm:flex-[.6] flex items-start justify-center flex-col px-8'>
-                        <p className='font-OpenSansRegular font-bold text-2xl pb-2'>How much can I borrow?</p>
+                        <p className='font-OpenSansRegular font-bold text-2xl pb-2 text-[#006875]'>How much can I borrow?</p>
                         <Formik
                             className="min-w-full"
                             initialValues={{ status: "", dependent: "", income: "" }}
@@ -68,7 +68,7 @@ function Calculator() {
                                         {({ field, form }) => (
                                             <FormControl isInvalid={form.errors.status && form.touched.status}>
                                                 <FormLabel className='flex flex-row items-center' >The loan is for <FaPersonCircleQuestion className='ml-2' /></FormLabel>
-                                                <Select {...field} placeholder='Select Status' size={"lg"}>
+                                                <Select {...field} placeholder='Select Status' size={"md"}>
                                                     <option>Single</option>
                                                     <option>Couple</option>
                                                 </Select>
@@ -80,7 +80,7 @@ function Calculator() {
                                         {({ field, form }) => (
                                             <FormControl isInvalid={form.errors.dependent && form.touched.dependent}>
                                                 <FormLabel className='flex flex-row items-center'>Number of Childerns <FaChildren className='ml-2' /></FormLabel>
-                                                <Select  {...field} placeholder='Select Number of Dependents' size={"lg"}   >
+                                                <Select  {...field} placeholder='Select Number of Dependents' size={"md"}   >
                                                     <option>0</option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -104,7 +104,7 @@ function Calculator() {
                                                     <InputLeftElement>
                                                         <BsCurrencyDollar />
                                                     </InputLeftElement>
-                                                    <Input  {...field} placeholder='Enter income' type='number' size={'lg'} />
+                                                    <Input  {...field} placeholder='Enter income' type='number' size={'md'} />
                                                 </InputGroup>
                                                 <FormErrorMessage>{form.errors.income}</FormErrorMessage>
                                             </FormControl>
@@ -125,22 +125,23 @@ function Calculator() {
                 {/* result model */}
                 <div className={`absolute top-[10%] left-[50] ${isOpen ? 'z-[2]' : 'z-[-1]' } `}>
                     <ScaleFade initialScale={0.2} in={isOpen} >
-                        <div className='w-[500px] sm:w-[600px] bg-white-500 rounded-xl p-5 bg-yellow-500 text-white !important'>
+                        <div className='w-[450px] sm:w-[600px] bg-white-500 rounded-xl p-5 bg-[#006875] text-white !important'>
                             <div className='min-w-full flex items-end justify-end'>
                                 <CloseButton size='md' onClick={()=>{setIsOpen(false)}} />
                             </div>
-
+                                            
                             <div className='flex justify-center '>
-                                <p className='font-OpenSansRegular text-2xl sm:text-4xl font-bold'>Borrowing power</p>
+                                <p className='font-OpenSansRegular text-2xl sm:text-4xl font-bold '>Borrowing power</p>
                             </div>
                             <div className='flex flex-row  justify-between mt-8'>  
-                                <p className="font-OpenSansRegular font-bold text-2xl">You could borrow up to</p>
-                                <p className="font-OpenSansRegular font-bold text-2xl">$ {bCapacity?.toLocaleString()}</p>
+                                <p className="font-OpenSansRegular font-bold text-2xl ">You could borrow up to</p>
+                                <p className="font-OpenSansRegular font-extrabold text-3xl">$ {bCapacity?.toLocaleString()}</p>
                             </div>
                             <div className='flex flex-row items-end  justify-end min-w-full space-x-2 mt-10'>
-                            <Button className='bg-[#006875] !important hover:bg-[#037c8b] !important text-white' onClick={()=>{setIsOpen(false)}}> close</Button>
+                            <Button onClick={()=>{setIsOpen(false)}}>Close</Button>
                             <Button onClick={()=>{setIsOpen(false)}}> Recalculate</Button>
                             </div>
+                            {/* className='bg-[#006875] !important hover:bg-[#037c8b] !important text-white'  */}
                         </div>
                     </ScaleFade>
                 </div>

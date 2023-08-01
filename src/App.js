@@ -17,7 +17,7 @@ function App() {
         {/* Logo */}
         <div className='h-16 w-full flex items-center justify-start space-x-2 pl-4 bg-[#006875]'>
           {/* <img src={logo} alt='logo' className='w-10 h-10'></img> */}
-          <p className='font-bold font-OpenSansRegular  text-2xl text-white'>Moratage Calculator</p>
+          <p className='font-bold font-OpenSansRegular  text-2xl text-white'>Mortage Calculator</p>
         </div>
       
         <BrowserRouter>

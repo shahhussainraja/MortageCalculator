@@ -9,7 +9,7 @@ module.exports = {
         OpenSansSemibold:['Open Sans', "sans-serif"],
       },
       backgroundImage:{
-        "GuideBackground" : "url('/src/Images/bg.jpeg')"
+        "GuideBackground" : "url('/src/Images/bg1.jpeg')"
       }
     },
   },

@@ -7,6 +7,9 @@ module.exports = {
         Montserratbold : ["Montserrat", "sans-serif"],
         OpenSansRegular:['Open Sans', "sans-serif"],
         OpenSansSemibold:['Open Sans', "sans-serif"],
+      },
+      backgroundImage:{
+        "GuideBackground" : "url('/src/Images/bg.jpeg')"
       }
     },
   },

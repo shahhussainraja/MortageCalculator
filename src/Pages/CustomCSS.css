@@ -3,8 +3,9 @@
     background-image: url(../Images/bg.jpeg);
     background-size: cover;
     background-position-x: center ;
-    transition: all 0.9s ease
+    transition: all 0.9s ease;
 }
+
 
 /* calculate page */
 

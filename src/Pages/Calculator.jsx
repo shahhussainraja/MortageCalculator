@@ -40,13 +40,11 @@ function Calculator() {
         return error
     }
 
-
-
     return (
         <>
             <div className="h-screen flex flex-col items-center justify-center relative">
 
-                <div className='h-[80%] w-[75%] rounded-2xl mt-10 flex bg-[#fcfcfc]'>
+                <div className='h-[80%] w-full sm:w-[75%] rounded-2xl mt-10 flex bg-[#fcfcfc]'>
                     <div className='flex-1 sm:flex-[.6] flex items-start justify-center flex-col px-8'>
                         <p className='font-OpenSansRegular font-bold text-2xl pb-2 text-[#006875]'>How much can I borrow?</p>
                         <Formik
@@ -80,7 +78,7 @@ function Calculator() {
                                         {({ field, form }) => (
                                             <FormControl isInvalid={form.errors.dependent && form.touched.dependent}>
                                                 <FormLabel className='flex flex-row items-center'>Number of Childerns <FaChildren className='ml-2' /></FormLabel>
-                                                <Select  {...field} placeholder='Select Number of Dependents' size={"md"}   >
+                                                <Select  {...field} placeholder='Select Number of Childerns' size={"md"}   >
                                                     <option>0</option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -125,18 +123,19 @@ function Calculator() {
                 {/* result model */}
                 <div className={`absolute top-[10%] left-[50] ${isOpen ? 'z-[2]' : 'z-[-1]' } `}>
                     <ScaleFade initialScale={0.2} in={isOpen} >
-                        <div className='w-[450px] sm:w-[600px] bg-white-500 rounded-xl p-5 bg-[#006875] text-white !important'>
+                        <div className='w-[400px] sm:w-[600px] bg-white-500 rounded-xl p-5 bg-[#006875] text-white !important'>
                             <div className='min-w-full flex items-end justify-end'>
                                 <CloseButton size='md' onClick={()=>{setIsOpen(false)}} />
                             </div>
                                             
                             <div className='flex justify-center '>
-                                <p className='font-OpenSansRegular text-2xl sm:text-4xl font-bold '>Borrowing power</p>
+                                <p className='font-OpenSansRegular text-3xl sm:text-4xl font-bold '>Borrowing power</p>
                             </div>
-                            <div className='flex flex-row  justify-between mt-8'>  
+                            <div className='flex flex-col sm:flex-row  justify-between mt-8'>  
                                 <p className="font-OpenSansRegular font-bold text-2xl ">You could borrow up to</p>
                                 <p className="font-OpenSansRegular font-extrabold text-3xl">$ {bCapacity?.toLocaleString()}</p>
                             </div>
+                                <p className='font-OpenSansRegular italic px-1 mt-2 opacity-80 text-xs '>(Disclaimer: Estimates provided are not financial advice; consult with a qualified professional for personalized information.)</p>
                             <div className='flex flex-row items-end  justify-end min-w-full space-x-2 mt-10'>
                             <Button onClick={()=>{setIsOpen(false)}}>Close</Button>
                             <Button onClick={()=>{setIsOpen(false)}}> Recalculate</Button>

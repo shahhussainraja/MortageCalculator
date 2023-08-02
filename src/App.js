@@ -5,18 +5,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StartGuide from './Pages/StartGuide';
 import Calculator from './Pages/Calculator';
 
-
-
 function App() {
-
 
   return (
     <>
       {/* Main containner */}
       <div className='h-screen'>
         {/* Logo */}
-        <div className='h-16 w-full flex items-center justify-start space-x-2 pl-4 bg-[#006875]'>
-          {/* <img src={logo} alt='logo' className='w-10 h-10'></img> */}
+        <div className='h-16 w-full flex items-center justify-start pl-4 bg-[#006875]'>
+          <img src={logo} alt='logo' className='w-11 h-11'></img>
           <p className='font-bold font-OpenSansRegular text-lg sm:text-2xl text-white'>Mortage Calculator</p>
         </div>
       

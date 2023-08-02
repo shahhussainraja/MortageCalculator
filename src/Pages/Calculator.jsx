@@ -17,7 +17,7 @@ function Calculator() {
     function validateStatus(value) {
         let error
         if (!value) {
-            error = 'This status field is required'
+            error = 'This field is required'
         }
         return error
     }
@@ -25,7 +25,7 @@ function Calculator() {
     function validateDependent(value) {
         let error
         if (!value) {
-            error = 'This dependent field is required'
+            error = 'This field is required'
         }
         return error
     }
@@ -33,7 +33,7 @@ function Calculator() {
     function validateIncome(value) {
         let error
         if (!value) {
-            error = 'This income field is required'
+            error = 'This field is required'
         }else if(value <= 0 ){
             error = 'Value must be greater then 0'
         } 

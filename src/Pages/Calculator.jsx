@@ -121,9 +121,9 @@ function Calculator() {
                 </div>
 
                 {/* result model */}
-                <div className={`absolute top-[10%] left-[50] ${isOpen ? 'z-[2]' : 'z-[-1]' } `}>
+                <div className={`absolute  top-[10%] left-[50] ${isOpen ? 'z-[2]' : 'z-[-1]' } `}>
                     <ScaleFade initialScale={0.2} in={isOpen} >
-                        <div className='w-[400px] sm:w-[600px] bg-white-500 rounded-xl p-5 bg-[#006875] text-white !important'>
+                        <div className='w-[300px] sm:w-[600px] bg-white-500 rounded-xl p-5 bg-[#006875] text-white !important'>
                             <div className='min-w-full flex items-end justify-end'>
                                 <CloseButton size='md' onClick={()=>{setIsOpen(false)}} />
                             </div>

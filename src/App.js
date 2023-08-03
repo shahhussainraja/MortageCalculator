@@ -14,7 +14,7 @@ function App() {
         {/* Logo */}
         <div className='h-16 w-full flex items-center justify-start pl-4 bg-[#006875]'>
           <img src={logo} alt='logo' className='w-11 h-11'></img>
-          <p className='font-bold font-OpenSansRegular text-lg sm:text-2xl text-white'>Mortage Calculator</p>
+          <p className='font-bold font-OpenSansRegular text-lg sm:text-2xl text-white'>Mortgage Calculator</p>
         </div>
       
         <BrowserRouter>

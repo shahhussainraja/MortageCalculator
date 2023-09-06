@@ -140,6 +140,7 @@ function Calculator() {
                             <Button onClick={()=>{setIsOpen(false)}}>Close</Button>
                             <Button onClick={()=>{setIsOpen(false)}}> Recalculate</Button>
                             </div>
+                            <div className='flex flex-row items-end  justify-end min-w-full space-x-2 mt-10'>hello</div>
                             {/* className='bg-[#006875] !important hover:bg-[#037c8b] !important text-white'  */}
                         </div>
                     </ScaleFade>

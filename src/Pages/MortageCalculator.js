@@ -1,14 +1,13 @@
-import { Home, Work } from "@mui/icons-material";
 import {
-    Card,
-    FormControl,
-    Grid,
-    InputAdornment,
-    InputLabel,
-    MenuItem,
-    OutlinedInput,
-    Select,
-    useMediaQuery
+  Card,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  useMediaQuery,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -18,10 +17,11 @@ import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import * as React from "react";
-import { useState } from "react";
 import * as Yup from "yup";
 import "./ToggleButton.css";
 import "./fonts.css";
+import Person2Icon from "@mui/icons-material/Person2";
+import WcIcon from "@mui/icons-material/Wc";
 
 const steps = ["Personal Information", "Income", "Result"];
 
@@ -45,7 +45,7 @@ export default function MortageCalaculator() {
   // Inside your component function...
   const formik = useFormik({
     initialValues: {
-      maritalStatus: "single", // Set initial values for your form fields
+      maritalStatus: "", // Set initial values for your form fields
       dependents: "",
     },
     validationSchema,
@@ -102,69 +102,21 @@ export default function MortageCalaculator() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
   const handleReset = () => {
     setActiveStep(0);
   };
 
-  const [selectedCard, setSelectedCard] = React.useState(null);
-
-  const handleCardSelect = (card) => {
-    setSelectedCard(card);
-  };
-
-  const [count, setCount] = React.useState(0);
-
-  const handleChange = (event) => {
-    setCount(event.target.value);
-  };
-
-  const [selectedOption, setSelectedOption] = React.useState(null);
-
-  const options = [
-    {
-      icon: <Home />,
-      value: "home",
-      label: "single",
-    },
-    {
-      icon: <Work />,
-      value: "work",
-      label: "couple",
-    },
-    // {
-    //   icon: <Person />,
-    //   value: "person",
-    // },
-    // Add more options as needed
-  ];
-  const [selectedStatusOption, setSelectedStatusOption] = useState("single");
-
-  const handleOptionChange = (option) => {
-    setSelectedStatusOption(option);
-  };
-
-  const handleSelectOption = (optionValue) => {
-    setSelectedOption(optionValue);
-  };
   const isSmallScreen = useMediaQuery("(max-width:900px)");
   return (
     <>
-      <Card sx={{ borderRadius: 5, margin: 1, bgcolor: "#F0F0F0" }}>
+      <Card
+        sx={{
+          borderRadius: 5,
+          margin: 1,
+          bgcolor: "#F0F0F0",
+          maxWidth: "1440px",
+        }}
+      >
         <Grid container padding={4}>
           <Grid item xs={12} md={2}>
             <Stepper
@@ -181,7 +133,16 @@ export default function MortageCalaculator() {
                 }
                 return (
                   <Step key={label} {...stepProps}>
-                    <StepLabel {...labelProps}>{label}</StepLabel>
+                    <StepLabel
+                      {...labelProps}
+                      StepIconProps={{
+                        style: {
+                          color: "#006875",
+                        },
+                      }}
+                    >
+                      {label}
+                    </StepLabel>
                   </Step>
                 );
               })}
@@ -209,15 +170,30 @@ export default function MortageCalaculator() {
                     <form onSubmit={formik.handleSubmit}>
                       {/* Marital Status */}
                       <Grid container alignItems={"center"}>
+                        <Grid
+                          item
+                          textAlign={"center"}
+                          xs={12}
+                          sm={12}
+                          md={12}
+                          mb={5}
+                        >
+                          <span
+                            style={{ fontWeight: "bold", fontSize: "25px" }}
+                          >
+                            Mortage Calculator
+                          </span>
+                        </Grid>
                         <Grid item sm={12} md={12} mb={2.5}>
-                          Martial Status <span style={{ color: "red" }}>*</span>
+                          Choose Martial Status{" "}
+                          <span style={{ color: "red" }}>*</span>
                         </Grid>
                       </Grid>
                       <div className="toggle-button">
                         <button
                           style={{
-                            borderTopLeftRadius: 50,
-                            borderBottomLeftRadius: 50,
+                            // borderTopLeftRadius: 50,
+                            // borderBottomLeftRadius: 50,
                             width: "auto",
                             height: "auto",
                           }}
@@ -231,12 +207,12 @@ export default function MortageCalaculator() {
                           }
                           type="button"
                         >
-                          Single
+                          <Person2Icon /> Single
                         </button>
                         <button
                           style={{
-                            borderTopRightRadius: 50,
-                            borderBottomRightRadius: 50,
+                            // borderTopRightRadius: 50,
+                            // borderBottomRightRadius: 50,
                             width: "auto",
                             height: "auto",
                           }}
@@ -250,7 +226,7 @@ export default function MortageCalaculator() {
                           }
                           type="button"
                         >
-                          Couple
+                          <WcIcon /> Couple
                         </button>
                       </div>
                       {formik.touched.maritalStatus &&
@@ -263,11 +239,24 @@ export default function MortageCalaculator() {
                       {/* Dependents */}
                       <Grid container alignItems={"center"}>
                         <Grid item sm={12} md={12} mb={2.5} mt={2.5}>
-                          Martial Status <span style={{ color: "red" }}>*</span>
+                          No. of Dependents{" "}
+                          <span style={{ color: "red" }}>*</span>
                         </Grid>
                       </Grid>
                       <Box sx={{ minWidth: 120 }}>
-                        <FormControl fullWidth>
+                        <FormControl
+                          sx={{
+                            minWidth: "500px",
+                            "& .Mui-focused": {
+                              color: "#006875",
+                            },
+                            "& .MuiOutlinedInput-root": {
+                              "&.Mui-focused fieldset": {
+                                borderColor: "#006875",
+                              },
+                            },
+                          }}
+                        >
                           <InputLabel id="demo-simple-select-label">
                             Dependents
                           </InputLabel>
@@ -303,16 +292,10 @@ export default function MortageCalaculator() {
                           </div>
                         )}
 
-                      {/* Submit button */}
-
-                      {/* <Button variant="contained" type="submit">
-                        Next
-                      </Button> */}
                       <Box
                         sx={{ display: "flex", flexDirection: "row", pt: 2 }}
                       >
                         <Button
-                          // color="inherit"
                           disabled={activeStep === 0}
                           onClick={handleBack}
                           sx={{ mr: 1 }}
@@ -321,134 +304,60 @@ export default function MortageCalaculator() {
                           Back
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
-                        {/* {isStepOptional(activeStep) && (
-                    <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                      Skip
-                    </Button>
-                  )} */}
 
-                        <Button variant="contained" type="submit">
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: "#006875",
+                            color: "#fff",
+                            "&:hover": {
+                              backgroundColor: "#00555d",
+                            },
+                          }}
+                          type="submit"
+                        >
                           Next
                         </Button>
                       </Box>
                       {/* <button type="submit">Submit</button> */}
                     </form>
-                  ) : // <>
-                  //   <Grid container alignItems={"center"}>
-                  //     <Grid item sm={12} md={12} mb={2.5}>
-                  //       Martial Status <span style={{ color: "red" }}>*</span>
-                  //     </Grid>
-                  //     <Grid item sm={12} md={12}>
-                  //       <div className="toggle-button">
-                  //         <button
-                  //           style={{
-                  //             borderTopLeftRadius: 50,
-                  //             borderBottomLeftRadius: 50,
-                  //             width: "auto",
-                  //             height: "auto",
-                  //           }}
-                  //           className={
-                  //             selectedStatusOption === "single" ? "active" : ""
-                  //           }
-                  //           onClick={() => handleOptionChange("single")}
-                  //           // style={{ width: '100px' }} // Adjust the width as needed
-                  //         >
-                  //           Single
-                  //         </button>
-                  //         <button
-                  //           style={{
-                  //             borderTopRightRadius: 50,
-                  //             borderBottomRightRadius: 50,
-                  //             width: "auto",
-                  //             height: "auto",
-                  //           }}
-                  //           className={
-                  //             selectedStatusOption === "couple" ? "active" : ""
-                  //           }
-                  //           onClick={() => handleOptionChange("couple")}
-                  //           // style={{}} // Adjust the width as needed
-                  //         >
-                  //           Couple
-                  //         </button>
-                  //       </div>
-                  //       {/* <IconOptions
-                  //         options={options}
-                  //         selectedOption={selectedOption}
-                  //         onSelectOption={handleSelectOption}
-                  //       /> */}
-                  //       {/* <Box sx={{ minWidth: 120 }}>
-                  //     <FormControl fullWidth>
-                  //       <InputLabel id="demo-simple-select-label">
-                  //         Dependents
-                  //       </InputLabel>
-                  //       <Select
-                  //         labelId="demo-simple-select-label"
-                  //         id="demo-simple-select"
-                  //         value={count}
-                  //         label="Dependents"
-                  //         onChange={handleChange}
-                  //       >
-                  //         <MenuItem value="">Select Dependents</MenuItem>
-                  //         <MenuItem value={1}>1</MenuItem>
-                  //         <MenuItem value={2}>2</MenuItem>
-                  //         <MenuItem value={3}>3</MenuItem>
-                  //         <MenuItem value={4}>4</MenuItem>
-                  //         <MenuItem value={5}>5</MenuItem>
-                  //         <MenuItem value={6}>6</MenuItem>
-                  //         <MenuItem value={7}>7</MenuItem>
-                  //         <MenuItem value={8}>8</MenuItem>
-                  //         <MenuItem value={9}>9</MenuItem>
-                  //         <MenuItem value={10}>10</MenuItem>
-
-                  //       </Select>
-                  //     </FormControl>
-                  //   </Box> */}
-                  //     </Grid>
-                  //   </Grid>
-
-                  //   <Grid container alignItems={"center"} mt={5}>
-                  //     <Grid item xs={12} sm={12} md={12} mb={3}>
-                  //       Dependents <span style={{ color: "red" }}>*</span>
-                  //     </Grid>
-                  //     <Grid item xs={12} sm={12} md={12}>
-                  //       <Box sx={{ minWidth: 120 }}>
-                  //         <FormControl fullWidth>
-                  //           <InputLabel id="demo-simple-select-label">
-                  //             Dependents
-                  //           </InputLabel>
-                  //           <Select
-                  //             labelId="demo-simple-select-label"
-                  //             id="demo-simple-select"
-                  //             value={count}
-                  //             label="Dependents"
-                  //             onChange={handleChange}
-                  //           >
-                  //             <MenuItem value="">Select Dependents</MenuItem>
-                  //             <MenuItem value={1}>1</MenuItem>
-                  //             <MenuItem value={2}>2</MenuItem>
-                  //             <MenuItem value={3}>3</MenuItem>
-                  //             <MenuItem value={4}>4</MenuItem>
-                  //             <MenuItem value={5}>5</MenuItem>
-                  //             <MenuItem value={6}>6</MenuItem>
-                  //             <MenuItem value={7}>7</MenuItem>
-                  //             <MenuItem value={8}>8</MenuItem>
-                  //             <MenuItem value={9}>9</MenuItem>
-                  //             <MenuItem value={10}>10</MenuItem>
-                  //           </Select>
-                  //         </FormControl>
-                  //       </Box>
-                  //     </Grid>
-                  //   </Grid>
-                  // </>
-                  activeStep === 1 ? (
+                  ) : activeStep === 1 ? (
                     <form onSubmit={formik2.handleSubmit}>
-                      <Grid container alignItems="center" mt={5}>
+                      <Grid container alignItems="center" mt={1}>
+                        <Grid
+                          item
+                          textAlign={"center"}
+                          xs={12}
+                          sm={12}
+                          md={12}
+                          mb={5}
+                        >
+                          <span
+                            style={{ fontWeight: "bold", fontSize: "25px" }}
+                          >
+                            Mortage Calculator
+                          </span>
+                        </Grid>
                         <Grid item xs={12} sm={12} md={12} mb={5}>
                           Income <span style={{ color: "red" }}>*</span>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} mb={5.5}>
                           <Box sx={{ maxWidth: "100%" }}>
-                            <FormControl fullWidth sx={{ m: 1 }}>
+                            <FormControl
+                              sx={{
+                                minWidth: "500px",
+                                "& .Mui-focused": {
+                                  color: "#006875",
+                                },
+                                "& .MuiOutlinedInput-root": {
+                                  "&.Mui-focused fieldset": {
+                                    borderColor: "#006875",
+                                  },
+                                },
+                                m: 1,
+                              }}
+                              // fullWidth
+                            >
                               <InputLabel htmlFor="outlined-adornment-amount">
                                 Amount
                               </InputLabel>
@@ -469,17 +378,7 @@ export default function MortageCalaculator() {
                                 label="Amount"
                               />
                             </FormControl>
-                            {/* <TextField
-                              fullWidth
-                              label="Add Income"
-                              id="income"
-                              type="number"
-                              {...formik2.getFieldProps("income")}
-                              error={
-                                formik2.touched.income &&
-                                Boolean(formik2.errors.income)
-                              }
-                            /> */}
+
                             {formik2.touched.income && formik2.errors.income ? (
                               <div style={{ color: "red" }}>
                                 {formik2.errors.income}
@@ -488,58 +387,48 @@ export default function MortageCalaculator() {
                           </Box>
                         </Grid>
                       </Grid>
-                      {/* <Button variant="contained" type="submit">
-                        Next
-                      </Button> */}
+
                       <Box
                         sx={{ display: "flex", flexDirection: "row", pt: 2 }}
                       >
                         <Button
-                          // color="inherit"
                           disabled={activeStep === 0}
                           onClick={handleBack}
-                          sx={{ mr: 1 }}
+                          sx={{
+                            mr: 1,
+                            backgroundColor: "#006875",
+                            color: "#fff",
+                            "&:hover": {
+                              backgroundColor: "#00555d",
+                            },
+                          }}
                           variant="contained"
                         >
                           Back
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
-                        {/* {isStepOptional(activeStep) && (
-                    <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                      Skip
-                    </Button>
-                  )} */}
 
-                        <Button variant="contained" type="submit">
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: "#006875",
+                            color: "#fff",
+                            "&:hover": {
+                              backgroundColor: "#00555d",
+                            },
+                          }}
+                          type="submit"
+                        >
                           Calculate
                         </Button>
                       </Box>
                       {/* <button type="submit">Submit</button> */}
                     </form>
-                  ) : // <>
-                  //   <Grid container alignItems={"center"} mt={5}>
-                  //     <Grid item xs={12} sm={12} md={12} mb={5}>
-                  //       Income <span style={{ color: "red" }}>*</span>
-                  //     </Grid>
-                  //     <Grid item xs={12} sm={12} md={12} mb={5.5}>
-                  //       <Box
-                  //         sx={{
-                  //           maxWidth: "100%",
-                  //         }}
-                  //       >
-                  //         <TextField
-                  //           fullWidth
-                  //           label="Add Inncome"
-                  //           id="income"
-                  //           type="number"
-                  //         />
-                  //       </Box>
-                  //     </Grid>
-                  //   </Grid>
-                  // </>
-                  activeStep === 2 ? (
+                  ) : activeStep === 2 ? (
                     <>
-                      <h1 style={{textAlign:'center', fontWeight:'bold'}}>Borrowing Power</h1>
+                      <h1 style={{ textAlign: "center", fontWeight: "bold" }}>
+                        Borrowing Power
+                      </h1>
 
                       <Grid container>
                         <Grid item sm={12} md={12} lg={6} pl={10}>
@@ -614,14 +503,31 @@ export default function MortageCalaculator() {
                           // color="inherit"
                           disabled={activeStep === 0}
                           onClick={handleBack}
-                          sx={{ mr: 1 }}
+                          sx={{
+                            mr: 1,
+                            backgroundColor: "#006875",
+                            color: "#fff",
+                            "&:hover": {
+                              backgroundColor: "#00555d", // Customize the hover color as needed
+                            },
+                          }}
                           variant="contained"
                         >
                           Back
                         </Button>
                         <Box sx={{ flex: "1 1 auto" }} />
 
-                        <Button variant="contained" onClick={handleReset}>
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: "#006875",
+                            color: "#fff",
+                            "&:hover": {
+                              backgroundColor: "#00555d", // Customize the hover color as needed
+                            },
+                          }}
+                          onClick={handleReset}
+                        >
                           Recalculate
                         </Button>
                       </Box>
@@ -629,47 +535,11 @@ export default function MortageCalaculator() {
                   ) : (
                     <>Hello</>
                   )}
-                  {/* <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                    <Button
-                      // color="inherit"
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      sx={{ mr: 1 }}
-                      variant="contained"
-                    >
-                      Back
-                    </Button>
-                    <Box sx={{ flex: "1 1 auto" }} />
-                   
-
-                    <Button
-                      variant="contained"
-                      onClick={
-                        activeStep === steps.length - 1
-                          ? handleReset
-                          : handleNext
-                      }
-                    >
-                      {activeStep === steps.length - 1 ? "Recalculate" : "Next"}
-                    </Button>
-                  </Box> */}
                 </React.Fragment>
               )}
             </Card>
           </Grid>
         </Grid>
-
-        {/* <CustomRadioButton
-        // {...field}
-        icon={<AddCircleIcon />}
-        label="Couple"
-        value="couple"
-        selectedValue={selectedValue}
-        onChange={handleChange}
-      /> */}
-      </Card>
-      <Card>
-        Hello
       </Card>
     </>
   );

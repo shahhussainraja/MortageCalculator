@@ -2,21 +2,23 @@
 .toggle-button{
     display: inline-block;
 
-    border: 2px solid #7091F5;
+    /* border: 2px solid #7091F5; */
     /* width: 180.4px; */
-    margin: 100;
-    border-radius: 50px;
+    /* margin: 100; */
+    
 }
 .toggle-button button {
     background-color: #ccc;
     border: none;
+    border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    /* margin-right: 10px; */
+    border-radius: 5;
+    margin-right: 10px;
   }
   
   .toggle-button button.active {
-    background-color: #007bff; /* Change this to your desired color */
+    background-color: #006875; /* Change this to your desired color */
     color: #fff; /* Text color for the active button */
   }
   

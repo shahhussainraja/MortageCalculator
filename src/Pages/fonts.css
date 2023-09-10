@@ -1,0 +1,8 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(./Radomir\ Tinkov\ -\ Gilroy-Light.otf);
+ }
+ 
+ * {
+    font-family: myFirstFont;
+ }

@@ -22,6 +22,9 @@ import "./ToggleButton.css";
 import "./fonts.css";
 import Person2Icon from "@mui/icons-material/Person2";
 import WcIcon from "@mui/icons-material/Wc";
+import { useState } from "react";
+import mortageCapacity from "../utility/mortageCapacity";
+import { useEffect } from "react";
 
 const steps = ["Personal Information", "Income", "Result"];
 
@@ -31,14 +34,22 @@ export default function MortageCalaculator() {
   const validationSchema = Yup.object({
     // Define validation rules for your form fields here
     maritalStatus: Yup.string().required("Marital Status is required"),
-    dependents: Yup.number()
+    dependents: Yup.string()
       .required("Dependents is required")
       .min(1, "Dependents must be at least 1"),
   });
 
+  const [form1, setForm1] = React.useState({});
+  const [income, setInccome] = useState();
+  const [bCapacity, setBCapacity] = useState(0);
+
+  const [tax, setTax] = useState(0);
+
   const handleSubmit = (values) => {
     // Handle form submission here
     console.log("Form submitted with values:", values);
+    setForm1(values);
+    // console.log("Form submitted with values in state:", form1);
     handleNext();
   };
 
@@ -58,10 +69,10 @@ export default function MortageCalaculator() {
       .min(0, "Income must be a positive number"),
   });
 
-  const handleSubmit2 = (values) => {
-    // Handle form submission here
-    console.log("Form submitted with values:", values);
-  };
+  // const handleSubmit2 = (values) => {
+  //   // Handle form submission here
+  //   console.log("Form submitted with values:", values);
+  // };
 
   // Inside your component function...
   const formik2 = useFormik({
@@ -72,10 +83,48 @@ export default function MortageCalaculator() {
     onSubmit: (values) => {
       // Handle form submission here
       console.log(values);
+      console.log(form1?.maritalStatus, form1?.dependents, values.income);
+
+      // setTimeout(() => {
+      setInccome(values.income);
+
+      if (values.income >= 0 && values.income <= 18200) {
+        setTax(0);
+      } else if (values.income >= 18201 && values.income <= 45000) {
+        setTax(19);
+      } else if (values.income >= 45001 && values.income <= 120000) {
+        setTax(32.5);
+      } else if (values.income >= 120001 && values.income <= 180000) {
+        setTax(37);
+      } else if (values.income >= 180001) {
+        setTax(45);
+      } else {
+        setTax(0);
+      }
+
+      setBCapacity(
+        mortageCapacity(form1?.maritalStatus, form1?.dependents, values.income)
+      );
+
       handleNext();
+      // }, 2000);
     },
   });
 
+  const[loan, setLoan] = useState(0)
+  useEffect(() => {
+    console.log("tax is ", tax);
+
+    const BC = income / 12 - (income * tax) / 1200 - bCapacity;
+    console.log("mortage capacity is", BC);
+
+    const Loan = (12 / 0.0624) * (BC * (1 - Math.pow(1 + 0.0624 / 12, -360)));
+    console.log('Im loan',Loan);
+    setLoan(Loan);
+    // const Loan = BC * 360;
+    // const abc = Loan + Loan * 0.05;
+    // console.log("loan is ", abc);
+  }, [bCapacity]);
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -103,6 +152,7 @@ export default function MortageCalaculator() {
   };
 
   const handleReset = () => {
+    console.log("mil gyi capaciyt", bCapacity);
     setActiveStep(0);
   };
 
@@ -198,12 +248,12 @@ export default function MortageCalaculator() {
                             height: "auto",
                           }}
                           className={
-                            formik.values.maritalStatus === "single"
+                            formik.values.maritalStatus === "Single"
                               ? "active"
                               : ""
                           }
                           onClick={() =>
-                            formik.setFieldValue("maritalStatus", "single")
+                            formik.setFieldValue("maritalStatus", "Single")
                           }
                           type="button"
                         >
@@ -217,12 +267,12 @@ export default function MortageCalaculator() {
                             height: "auto",
                           }}
                           className={
-                            formik.values.maritalStatus === "couple"
+                            formik.values.maritalStatus === "Couple"
                               ? "active"
                               : ""
                           }
                           onClick={() =>
-                            formik.setFieldValue("maritalStatus", "couple")
+                            formik.setFieldValue("maritalStatus", "Couple")
                           }
                           type="button"
                         >
@@ -270,16 +320,16 @@ export default function MortageCalaculator() {
                             label="Dependents"
                           >
                             <MenuItem value="">Select Dependents</MenuItem>
-                            <MenuItem value={1}>1</MenuItem>
-                            <MenuItem value={2}>2</MenuItem>
-                            <MenuItem value={3}>3</MenuItem>
-                            <MenuItem value={4}>4</MenuItem>
-                            <MenuItem value={5}>5</MenuItem>
-                            <MenuItem value={6}>6</MenuItem>
-                            <MenuItem value={7}>7</MenuItem>
-                            <MenuItem value={8}>8</MenuItem>
-                            <MenuItem value={9}>9</MenuItem>
-                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={"1"}>1</MenuItem>
+                            <MenuItem value={"2"}>2</MenuItem>
+                            <MenuItem value={"3"}>3</MenuItem>
+                            <MenuItem value={"4"}>4</MenuItem>
+                            <MenuItem value={"5"}>5</MenuItem>
+                            <MenuItem value={"6"}>6</MenuItem>
+                            <MenuItem value={"7"}>7</MenuItem>
+                            <MenuItem value={"8"}>8</MenuItem>
+                            <MenuItem value={"9+"}>9+</MenuItem>
+                            {/* <MenuItem value={10}>10</MenuItem> */}
 
                             {/* Add more MenuItem elements for other options */}
                           </Select>
@@ -426,13 +476,21 @@ export default function MortageCalaculator() {
                     </form>
                   ) : activeStep === 2 ? (
                     <>
-                      <h1 style={{ textAlign: "center", fontWeight: "bold" }}>
+                      <h1
+                        style={{
+                          textAlign: "center",
+                          fontWeight: "bold",
+                          fontSize: "25px",
+                        }}
+                      >
                         Borrowing Power
                       </h1>
 
                       <Grid container>
-                        <Grid item sm={12} md={12} lg={6} pl={10}>
-                          <h2>You can Borrow up to</h2>
+                        <Grid item sm={12} md={12} lg={6} pl={10} mb={5}>
+                          <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>
+                            You can Borrow up to
+                          </h2>
                         </Grid>
                         <Grid item sm={12} md={12} lg={6} pl={10}>
                           <Typography
@@ -440,7 +498,7 @@ export default function MortageCalaculator() {
                             variant="h4"
                             fontWeight={"bold"}
                           >
-                            $100000
+                            $ {loan?.toLocaleString()}
                           </Typography>
                         </Grid>
                         <Grid container>

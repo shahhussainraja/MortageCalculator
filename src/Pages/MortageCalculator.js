@@ -111,15 +111,18 @@ export default function MortageCalaculator() {
     },
   });
 
-  const[loan, setLoan] = useState(0)
+  const [loan, setLoan] = useState(0);
+  const [payments, setPayments] = useState(0);
   useEffect(() => {
     console.log("tax is ", tax);
 
     const BC = income / 12 - (income * tax) / 1200 - bCapacity;
+    console.log("Hem Value is", bCapacity);
     console.log("mortage capacity is", BC);
+    setPayments(BC);
 
     const Loan = (12 / 0.0624) * (BC * (1 - Math.pow(1 + 0.0624 / 12, -360)));
-    console.log('Im loan',Loan);
+    console.log("Im loan", Loan);
     setLoan(Loan);
     // const Loan = BC * 360;
     // const abc = Loan + Loan * 0.05;
@@ -152,8 +155,10 @@ export default function MortageCalaculator() {
   };
 
   const handleReset = () => {
-    console.log("mil gyi capaciyt", bCapacity);
+    console.log("mil gyi capacity", bCapacity);
     setActiveStep(0);
+    formik.resetForm();
+    formik2.resetForm();
   };
 
   const isSmallScreen = useMediaQuery("(max-width:900px)");
@@ -320,6 +325,7 @@ export default function MortageCalaculator() {
                             label="Dependents"
                           >
                             <MenuItem value="">Select Dependents</MenuItem>
+                            <MenuItem value={"0"}>0</MenuItem>
                             <MenuItem value={"1"}>1</MenuItem>
                             <MenuItem value={"2"}>2</MenuItem>
                             <MenuItem value={"3"}>3</MenuItem>
@@ -485,75 +491,95 @@ export default function MortageCalaculator() {
                       >
                         Borrowing Power
                       </h1>
-
-                      <Grid container>
-                        <Grid item sm={12} md={12} lg={6} pl={10} mb={5}>
-                          <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>
-                            You can Borrow up to
-                          </h2>
-                        </Grid>
-                        <Grid item sm={12} md={12} lg={6} pl={10}>
-                          <Typography
-                            align="center"
-                            variant="h4"
-                            fontWeight={"bold"}
-                          >
-                            $ {loan?.toLocaleString()}
-                          </Typography>
-                        </Grid>
-                        <Grid container>
-                          <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
-                            <Typography>Payments</Typography>
-                            <Box
-                              component="span"
-                              sx={{
-                                display: "inline-block",
-                                mx: "2px",
-                                transform: "scale(3)",
-                                color: "#557A46",
-                              }}
-                            >
-                              •
-                            </Box>
-                            <span>$-946/month</span>
-                          </Grid>
-                          <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
-                            <Typography>Expenses</Typography>
-                            <Box
-                              component="span"
-                              sx={{
-                                display: "inline-block",
-                                mx: "2px",
-                                transform: "scale(3)",
-                                color: "#64CCC5",
-                              }}
-                            >
-                              •
-                            </Box>
-                            <span>$-946</span>
-                          </Grid>
-                          <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
-                            <Typography>Remaining</Typography>
-                            <Box
-                              component="span"
-                              sx={{
-                                display: "inline-block",
-                                mx: "2px",
-                                transform: "scale(3)",
-                                color: "#EF9595",
-                              }}
-                            >
-                              •
-                            </Box>
-                            <span>$-946</span>
-                          </Grid>
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={12} p={3}>
+                      {loan < 0 ? (
+                        <>
+                          <p>Sorry You Can not Borrow</p>
+                          <br />
+                          <p>We have not any plan for you</p>
+                          <br />
                           <p>
-                            Based on 6.09% standard variable rate over 30 years.
+                            For Further details You can Contact with{" "}
+                            <span style={{ color: "blue", cursor: "pointer" }}>
+                              abc@gmail.com
+                            </span>{" "}
                           </p>
-                        </Grid>
-                      </Grid>
+                        </>
+                      ) : (
+                        <>
+                          <Grid container>
+                            <Grid item sm={12} md={12} lg={6} pl={10} mb={5}>
+                              <h2
+                                style={{ fontWeight: "bold", fontSize: "20px" }}
+                              >
+                                You can Borrow up to
+                              </h2>
+                            </Grid>
+                            <Grid item sm={12} md={12} lg={6} pl={10}>
+                              <Typography
+                                align="center"
+                                variant="h4"
+                                fontWeight={"bold"}
+                              >
+                                $ {loan?.toLocaleString()}
+                              </Typography>
+                            </Grid>
+                            <Grid container>
+                              <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
+                                <Typography>Payments</Typography>
+                                <Box
+                                  component="span"
+                                  sx={{
+                                    display: "inline-block",
+                                    mx: "2px",
+                                    transform: "scale(3)",
+                                    color: "#557A46",
+                                  }}
+                                >
+                                  •
+                                </Box>
+                                <span>$-{payments}/month</span>
+                              </Grid>
+                              <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
+                                <Typography>Expenses</Typography>
+                                <Box
+                                  component="span"
+                                  sx={{
+                                    display: "inline-block",
+                                    mx: "2px",
+                                    transform: "scale(3)",
+                                    color: "#64CCC5",
+                                  }}
+                                >
+                                  •
+                                </Box>
+                                <span>$-{bCapacity}</span>
+                              </Grid>
+                              <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
+                                <Typography>Duration</Typography>
+                                <Box
+                                  component="span"
+                                  sx={{
+                                    display: "inline-block",
+                                    mx: "2px",
+                                    transform: "scale(3)",
+                                    color: "#EF9595",
+                                  }}
+                                >
+                                  •
+                                </Box>
+                                <span>360 Months</span>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={6} lg={12} p={3}>
+                              <p>
+                                Based on 6.24% standard variable rate over 30
+                                years.
+                              </p>
+                            </Grid>
+                          </Grid>
+                        </>
+                      )}
+
                       <Box
                         sx={{ display: "flex", flexDirection: "row", pt: 2 }}
                       >

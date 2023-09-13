@@ -24,10 +24,9 @@ import "./fonts.css";
 import Person2Icon from "@mui/icons-material/Person2";
 import WcIcon from "@mui/icons-material/Wc";
 import { useState } from "react";
-import mortageCapacity from "../../utility/mortageCapacity"
+import mortageCapacity from "../../utility/mortageCapacity";
 import { useEffect } from "react";
-import { motion } from "framer-motion"
-
+import { motion } from "framer-motion";
 
 const steps = ["Personal Information", "Gross Income", "Borrow Capacity"];
 
@@ -45,7 +44,7 @@ export default function MortageCalaculator() {
   const [form1, setForm1] = React.useState({});
   const [income, setInccome] = useState();
   const [bCapacity, setBCapacity] = useState(0);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const [tax, setTax] = useState(0);
 
@@ -85,10 +84,10 @@ export default function MortageCalaculator() {
     },
     validationSchema: validationSchema2,
     onSubmit: (values) => {
-      setLoading(true)
+      setLoading(true);
       setTimeout(() => {
-        setLoading(false)
-      }, 3500)
+        setLoading(false);
+      }, 3500);
       handleNext();
       // Handle form submission here
 
@@ -115,7 +114,6 @@ export default function MortageCalaculator() {
       setBCapacity(
         mortageCapacity(form1?.maritalStatus, form1?.dependents, values.income)
       );
-
     },
   });
 
@@ -175,7 +173,7 @@ export default function MortageCalaculator() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: .25 }}
+        transition={{ duration: 0.5, delay: 0.25 }}
       >
         <Card
           sx={{
@@ -189,11 +187,17 @@ export default function MortageCalaculator() {
             alignItems: "center",
           }}
         >
-          <Grid container padding={4} sx={{ display: "flex", alignItems: "center" }}>
+          <Grid
+            container
+            padding={4}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
             <Grid item xs={12} md={2}>
               <Stepper
                 orientation={isSmallScreen ? "horizontal" : "vertical"}
-                sx={isSmallScreen ? { minHeight: 30, mb: 3 } : { minHeight: 350 }}
+                sx={
+                  isSmallScreen ? { minHeight: 30, mb: 3 } : { minHeight: 350 }
+                }
                 activeStep={activeStep}
               >
                 {steps.map((label, index) => {
@@ -203,6 +207,11 @@ export default function MortageCalaculator() {
                   if (isStepSkipped(index)) {
                     stepProps.completed = false;
                   }
+
+                  if (activeStep === 2) {
+                    stepProps.completed = true;
+                  }
+
                   return (
                     <Step key={label} {...stepProps}>
                       <StepLabel
@@ -237,12 +246,16 @@ export default function MortageCalaculator() {
                     </Box>
                   </React.Fragment>
                 ) : (
-                  // Form 1 
+                  // Form 1
                   <React.Fragment>
                     {activeStep === 0 ? (
                       <form onSubmit={formik.handleSubmit}>
                         {/* Marital Status */}
-                        <Grid container alignItems={"center"} sx={{ minHeight: "180px" }}>
+                        <Grid
+                          container
+                          alignItems={"center"}
+                          sx={{ minHeight: "180px" }}
+                        >
                           <Grid
                             item
                             textAlign={"center"}
@@ -258,9 +271,14 @@ export default function MortageCalaculator() {
                               Mortage Calculator
                             </span>
                           </Grid>
-                          <Grid item sm={12} md={12} mb={1} sx={{ fontSize: "20px" }}>
-                            The Loan for{" "}
-                            <span style={{ color: "red" }}>*</span>
+                          <Grid
+                            item
+                            sm={12}
+                            md={12}
+                            mb={1}
+                            sx={{ fontSize: "20px" }}
+                          >
+                            The Loan for <span style={{ color: "red" }}>*</span>
                           </Grid>
                         </Grid>
                         <div className="toggle-button">
@@ -312,7 +330,14 @@ export default function MortageCalaculator() {
 
                         {/* Dependents */}
                         <Grid container alignItems={"center"} mt={2}>
-                          <Grid item sm={12} md={12} mb={2.5} mt={1} sx={{ fontSize: "20px" }}>
+                          <Grid
+                            item
+                            sm={12}
+                            md={12}
+                            mb={2.5}
+                            mt={1}
+                            sx={{ fontSize: "20px" }}
+                          >
                             No. of Dependents{" "}
                             <span style={{ color: "red" }}>*</span>
                           </Grid>
@@ -397,10 +422,14 @@ export default function MortageCalaculator() {
                         {/* <button type="submit">Submit</button> */}
                       </form>
                     ) : activeStep === 1 ? (
-
                       // Form 2
                       <form onSubmit={formik2.handleSubmit}>
-                        <Grid container alignItems="center" mt={1} sx={{ minHeight: "180px" }}>
+                        <Grid
+                          container
+                          alignItems="center"
+                          mt={1}
+                          sx={{ minHeight: "180px" }}
+                        >
                           <Grid
                             item
                             textAlign={"center"}
@@ -416,7 +445,14 @@ export default function MortageCalaculator() {
                               Mortage Calculator
                             </span>
                           </Grid>
-                          <Grid item xs={12} sm={12} md={12} mb={1} sx={{ fontSize: "20px" }}>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            mb={1}
+                            sx={{ fontSize: "20px" }}
+                          >
                             Gross Income <span style={{ color: "red" }}>*</span>
                           </Grid>
                           <Grid item xs={12} sm={12} md={12} mb={5.5}>
@@ -434,7 +470,7 @@ export default function MortageCalaculator() {
                                   },
                                   m: 1,
                                 }}
-                              // fullWidth
+                                // fullWidth
                               >
                                 <InputLabel htmlFor="outlined-adornment-amount">
                                   Amount
@@ -457,7 +493,8 @@ export default function MortageCalaculator() {
                                 />
                               </FormControl>
 
-                              {formik2.touched.income && formik2.errors.income ? (
+                              {formik2.touched.income &&
+                              formik2.errors.income ? (
                                 <div style={{ color: "red" }}>
                                   {formik2.errors.income}
                                 </div>
@@ -505,14 +542,27 @@ export default function MortageCalaculator() {
                     ) : activeStep === 2 ? (
                       // Form 3
                       <>
-                        {
-                          loading ? <>
-                            <Grid container sx={{ display: "flex", justifyContent: "start", alignItems: "center", height: "350px" }}>
+                        {loading ? (
+                          <>
+                            <Grid
+                              container
+                              sx={{
+                                display: "flex",
+                                justifyContent: "start",
+                                alignItems: "center",
+                                height: "350px",
+                              }}
+                            >
                               <Grid item sx={{ margin: "auto" }}>
-                                <CircularProgress disableShrink sx={{ color: "#00555d" }} />
+                                <CircularProgress
+                                  disableShrink
+                                  sx={{ color: "#00555d" }}
+                                />
                               </Grid>
                             </Grid>
-                          </> : <>
+                          </>
+                        ) : (
+                          <>
                             {loan < 0 ? (
                               <>
                                 <p>Sorry You Can not Borrow</p>
@@ -521,7 +571,9 @@ export default function MortageCalaculator() {
                                 <br />
                                 <p>
                                   For Further details You can Contact with{" "}
-                                  <span style={{ color: "blue", cursor: "pointer" }}>
+                                  <span
+                                    style={{ color: "blue", cursor: "pointer" }}
+                                  >
                                     abc@gmail.com
                                   </span>{" "}
                                 </p>
@@ -529,9 +581,19 @@ export default function MortageCalaculator() {
                             ) : (
                               <>
                                 <Grid container sx={{ minHeight: "180px" }}>
-                                  <Grid item sm={12} md={12} lg={6} pl={10} mb={5}>
+                                  <Grid
+                                    item
+                                    sm={12}
+                                    md={12}
+                                    lg={6}
+                                    pl={10}
+                                    mb={5}
+                                  >
                                     <h2
-                                      style={{ fontWeight: "bolder", fontSize: "26px" }}
+                                      style={{
+                                        fontWeight: "bolder",
+                                        fontSize: "26px",
+                                      }}
                                     >
                                       You can Borrow up to
                                     </h2>
@@ -546,11 +608,30 @@ export default function MortageCalaculator() {
                                     </Typography>
                                   </Grid>
                                   <Grid container>
-                                    <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
-                                      <Typography sx={{
-                                        fontSize: "20px"
-                                      }}>Payments</Typography>
-                                      <Box component="span" sx={{ display: "flex", flexDirection: "row", gap: 1, alignItems: "center" }}>
+                                    <Grid
+                                      item
+                                      xs={12}
+                                      sm={12}
+                                      md={6}
+                                      lg={4}
+                                      p={3}
+                                    >
+                                      <Typography
+                                        sx={{
+                                          fontSize: "20px",
+                                        }}
+                                      >
+                                        Payments
+                                      </Typography>
+                                      <Box
+                                        component="span"
+                                        sx={{
+                                          display: "flex",
+                                          flexDirection: "row",
+                                          gap: 1,
+                                          alignItems: "center",
+                                        }}
+                                      >
                                         <Box
                                           component="span"
                                           sx={{
@@ -563,14 +644,35 @@ export default function MortageCalaculator() {
                                         >
                                           •
                                         </Box>
-                                        <span className="text-xl">${payments.toFixed(2)}/month</span>
+                                        <span className="text-xl">
+                                          ${payments.toFixed(2)}/month
+                                        </span>
                                       </Box>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
-                                      <Typography sx={{
-                                        fontSize: "20px"
-                                      }}>Expenses</Typography>
-                                      <Box component="span" sx={{ display: "flex", flexDirection: "row", gap: 1, alignItems: "center" }}>
+                                    <Grid
+                                      item
+                                      xs={12}
+                                      sm={12}
+                                      md={6}
+                                      lg={4}
+                                      p={3}
+                                    >
+                                      <Typography
+                                        sx={{
+                                          fontSize: "20px",
+                                        }}
+                                      >
+                                        Expenses
+                                      </Typography>
+                                      <Box
+                                        component="span"
+                                        sx={{
+                                          display: "flex",
+                                          flexDirection: "row",
+                                          gap: 1,
+                                          alignItems: "center",
+                                        }}
+                                      >
                                         <Box
                                           component="span"
                                           sx={{
@@ -583,16 +685,35 @@ export default function MortageCalaculator() {
                                         >
                                           •
                                         </Box>
-                                        <span className="text-xl">${bCapacity}</span>
+                                        <span className="text-xl">
+                                          ${bCapacity}
+                                        </span>
                                       </Box>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={4} p={3}>
+                                    <Grid
+                                      item
+                                      xs={12}
+                                      sm={12}
+                                      md={6}
+                                      lg={4}
+                                      p={3}
+                                    >
                                       <Typography
                                         sx={{
-                                          fontSize: "20px"
+                                          fontSize: "20px",
                                         }}
-                                      >Duration</Typography>
-                                      <Box component="span" sx={{ display: "flex", flexDirection: "row", gap: 1, alignItems: "center" }}>
+                                      >
+                                        Duration
+                                      </Typography>
+                                      <Box
+                                        component="span"
+                                        sx={{
+                                          display: "flex",
+                                          flexDirection: "row",
+                                          gap: 1,
+                                          alignItems: "center",
+                                        }}
+                                      >
                                         <Box
                                           component="span"
                                           sx={{
@@ -605,14 +726,23 @@ export default function MortageCalaculator() {
                                         >
                                           •
                                         </Box>
-                                        <span className="text-xl">360 Months</span>
+                                        <span className="text-xl">
+                                          360 Months
+                                        </span>
                                       </Box>
                                     </Grid>
                                   </Grid>
-                                  <Grid item xs={12} sm={12} md={6} lg={12} p={3}>
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    sm={12}
+                                    md={6}
+                                    lg={12}
+                                    p={3}
+                                  >
                                     <p className="opacity-70">
-                                      Based on 6.24% standard variable rate over 30
-                                      years.
+                                      Based on 6.24% standard variable rate over
+                                      30 years.
                                     </p>
                                   </Grid>
                                 </Grid>
@@ -620,7 +750,11 @@ export default function MortageCalaculator() {
                             )}
 
                             <Box
-                              sx={{ display: "flex", flexDirection: "row", pt: 2 }}
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                pt: 2,
+                              }}
                             >
                               <Button
                                 // color="inherit"
@@ -655,7 +789,7 @@ export default function MortageCalaculator() {
                               </Button>
                             </Box>
                           </>
-                        }
+                        )}
                       </>
                     ) : (
                       <></>

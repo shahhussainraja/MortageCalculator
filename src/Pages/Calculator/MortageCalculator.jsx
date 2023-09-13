@@ -262,13 +262,13 @@ export default function MortageCalaculator() {
                             xs={12}
                             sm={12}
                             md={12}
-                            mb={5}
+                            mb={1}
                           >
                             <span
-                              style={{ fontWeight: "bolder", fontSize: "25px" }}
+                              style={{ fontWeight: "bolder", fontSize: "30px" }}
                               className="text-color"
                             >
-                              Mortage Calculator
+                              Borrowing power
                             </span>
                           </Grid>
                           <Grid
@@ -360,6 +360,9 @@ export default function MortageCalaculator() {
                               Dependents
                             </InputLabel>
                             <Select
+                              sx={{
+                                fontSize: "18px"
+                              }}
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               name="dependents"
@@ -439,10 +442,10 @@ export default function MortageCalaculator() {
                             mb={5}
                           >
                             <span
-                              style={{ fontWeight: "bold", fontSize: "25px" }}
+                              style={{ fontWeight: "bolder", fontSize: "30px" }}
                               className="text-color"
                             >
-                              Mortage Calculator
+                              Borrowing power
                             </span>
                           </Grid>
                           <Grid
@@ -453,7 +456,7 @@ export default function MortageCalaculator() {
                             mb={1}
                             sx={{ fontSize: "20px" }}
                           >
-                            Gross Income <span style={{ color: "red" }}>*</span>
+                            Monthly income before tax <span style={{ color: "red" }}>*</span>
                           </Grid>
                           <Grid item xs={12} sm={12} md={12} mb={5.5}>
                             <Box sx={{ maxWidth: "100%" }}>
@@ -470,12 +473,15 @@ export default function MortageCalaculator() {
                                   },
                                   m: 1,
                                 }}
-                                // fullWidth
+                              // fullWidth
                               >
                                 <InputLabel htmlFor="outlined-adornment-amount">
                                   Amount
                                 </InputLabel>
                                 <OutlinedInput
+                                  sx={{
+                                    fontSize: "18px"
+                                  }}
                                   id="income"
                                   type="number"
                                   {...formik2.getFieldProps("income")}
@@ -494,7 +500,7 @@ export default function MortageCalaculator() {
                               </FormControl>
 
                               {formik2.touched.income &&
-                              formik2.errors.income ? (
+                                formik2.errors.income ? (
                                 <div style={{ color: "red" }}>
                                   {formik2.errors.income}
                                 </div>
@@ -550,7 +556,7 @@ export default function MortageCalaculator() {
                                 display: "flex",
                                 justifyContent: "start",
                                 alignItems: "center",
-                                height: "350px",
+                                height: "300px",
                               }}
                             >
                               <Grid item sx={{ margin: "auto" }}>
@@ -565,18 +571,11 @@ export default function MortageCalaculator() {
                           <>
                             {loan < 0 ? (
                               <>
-                                <p>Sorry You Can not Borrow</p>
-                                <br />
-                                <p>We have not any plan for you</p>
-                                <br />
-                                <p>
-                                  For Further details You can Contact with{" "}
-                                  <span
-                                    style={{ color: "blue", cursor: "pointer" }}
-                                  >
-                                    abc@gmail.com
-                                  </span>{" "}
-                                </p>
+                                <Grid container sx={{ minHeight: "180px",display:"flex",justifyContent:"center" }}>
+                                  <Grid  item sx={{margin:"auto"}}>
+                                    <p className="font-bold text-lg">We were unable to calculate a borrowing capacity for you based on the information provided.</p>
+                                  </Grid>
+                                </Grid>
                               </>
                             ) : (
                               <>
@@ -589,14 +588,14 @@ export default function MortageCalaculator() {
                                     pl={10}
                                     mb={5}
                                   >
-                                    <h2
+                                    <p
                                       style={{
                                         fontWeight: "bolder",
                                         fontSize: "26px",
                                       }}
                                     >
                                       You can Borrow up to
-                                    </h2>
+                                    </p>
                                   </Grid>
                                   <Grid item sm={12} md={12} lg={6} pl={10}>
                                     <Typography
@@ -741,9 +740,9 @@ export default function MortageCalaculator() {
                                     p={3}
                                   >
                                     <p className="opacity-70">
-                                      Based on 6.24% standard variable rate over
-                                      30 years.
+                                      Based on 6.24% interest and additional 3% Buffer over a repayment period of 30 years.
                                     </p>
+
                                   </Grid>
                                 </Grid>
                               </>

@@ -220,6 +220,7 @@ export default function MortageCalaculator() {
                   </Box>
                 </React.Fragment>
               ) : (
+                // Form 1 
                 <React.Fragment>
                   {activeStep === 0 ? (
                     <form onSubmit={formik.handleSubmit}>
@@ -378,6 +379,8 @@ export default function MortageCalaculator() {
                       {/* <button type="submit">Submit</button> */}
                     </form>
                   ) : activeStep === 1 ? (
+
+                    // Form 2
                     <form onSubmit={formik2.handleSubmit}>
                       <Grid container alignItems="center" mt={1}>
                         <Grid
@@ -481,6 +484,7 @@ export default function MortageCalaculator() {
                       {/* <button type="submit">Submit</button> */}
                     </form>
                   ) : activeStep === 2 ? (
+                    // Form 3
                     <>
                       <h1
                         style={{

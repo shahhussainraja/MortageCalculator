@@ -19,3 +19,49 @@ code {
     monospace;
 }
 
+
+
+
+/* startup page */
+
+/* .startup-bg{
+  position: relative; 
+    width: 100%;
+    height: 100%;
+
+    &::before{
+      content: "";
+      position: absolute;
+      background-image: url("./Images/1.jpg");
+      background-size: cover !important;  
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.75;
+    
+    }
+} */
+
+
+.start-bg{
+  background-image: url("./Images/1.jpg");
+  background-size: cover;
+  background-position: 10%;
+}
+
+.p{
+  position: relative;
+}
+
+
+.MuiGrid-root .MuiGrid-item .MuiGrid-grid-sm-12 .MuiGrid-grid-md-12 .css-5nvn4t-MuiGrid-root{
+  font-size: 20px !important;
+  margin-bottom: 0px !important;
+  font-weight: 200;
+}
+
+
+.text-color{
+  color: #006875;
+}

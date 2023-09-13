@@ -16,9 +16,9 @@ export default function LandingPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{duration : 1 , delay : 0.5}}
                 >
-                    <p className='font-extrabold text-5xl text-white'>Borrowing power calculator</p>
-                    <p className='font-bold text-3xl text-white'>How much can I borrow?</p>
-                    <p className='text-xl text-white w-[50%] opacity-90'>
+                    <p className='font-extrabold text-2xl sm:text-4xl text-white '>Borrowing power calculator</p>
+                    <p className='font-bold text-xl sm:text-2xl text-white'>How much can I borrow?</p>
+                    <p className='text-md sm:text-lg text-white md:w-[50%] opacity-90'>
                         This calculator estimates your borrowing power based on your income, financial commitments and loan details entered. This can be used in conjunction with our loan repayment calculator to help you to work out your repayments based on the amount you wish to borrow.
                     </p>
                 </ motion.div>

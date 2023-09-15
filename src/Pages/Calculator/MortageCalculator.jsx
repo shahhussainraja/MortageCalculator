@@ -127,7 +127,7 @@ export default function MortageCalaculator() {
     // console.log("mortage capacity is", BC);
     setPayments(BC);
 
-    const Loan = (12 / 0.0624) * (BC * (1 - Math.pow(1 + 0.0624 / 12, -360)));
+    const Loan = (12 / 0.0924) * (BC * (1 - Math.pow(1 + 0.0924 / 12, -360)));
     // console.log("Im loan", Loan);
     setLoan(Loan);
     // const Loan = BC * 360;

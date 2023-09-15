@@ -254,7 +254,7 @@ export default function MortageCalaculator() {
                         <Grid
                           container
                           alignItems={"center"}
-                          sx={{ minHeight: "180px" }}
+                          sx={{ maxHeight: "180px" }}
                         >
                           <Grid
                             item
@@ -458,10 +458,10 @@ export default function MortageCalaculator() {
                             Monthly income before tax <span style={{ color: "red" }}>*</span>
                           </Grid>
                           <Grid item xs={12} sm={12} md={12} mb={5.5}>
-                            <Box sx={{ maxWidth: "100%" }}>
+                            <Box sx={{ maxWidth: "100%" }} >
                               <FormControl
                                 sx={{
-                                  minWidth: "500px",
+                    
                                   "& .Mui-focused": {
                                     color: "#006875",
                                   },
@@ -472,6 +472,8 @@ export default function MortageCalaculator() {
                                   },
                                   m: 1,
                                 }}
+                                
+                                className="w-[100%] sm:w-[500px]"
                               // fullWidth
                               >
                                 <InputLabel htmlFor="outlined-adornment-amount">

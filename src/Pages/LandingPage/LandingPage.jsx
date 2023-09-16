@@ -8,8 +8,8 @@ export default function LandingPage() {
     return (
         <Grid container className='startup-bg'>
             <Grid item lg={12} xl={12} sx={{
-                paddingTop: 20,
-                paddingLeft: 10
+                paddingTop: {xs:10,sm:20},
+                paddingLeft: {xs:1,sm:10}
             }}>
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}

@@ -616,7 +616,8 @@ export default function MortageCalaculator() {
                                     <p
                                       style={{
                                         fontWeight: "bolder",
-                                        fontSize: "26px",
+                                        fontSize: "30px",
+                                        color:"#006875"
                                       }}
                                     >
                                       You can Borrow up to
@@ -626,10 +627,12 @@ export default function MortageCalaculator() {
                                     <h2
                                       style={{
                                         fontWeight: "bolder",
-                                        fontSize: "26px",
+                                        fontSize: "33px",
+                                        color:"#006875",
+                                        letterSpacing: 1  
                                       }}
                                     >
-                                      $ {minLoan?.toLocaleString()} - ${" "}
+                                      $ {minLoan?.toLocaleString()} - ${"  "}
                                       {loan?.toLocaleString()}{" "}
                                     </h2>
                                     {/* <Typography

@@ -118,6 +118,7 @@ export default function MortageCalaculator() {
   });
 
   const [loan, setLoan] = useState(0);
+  const [minLoan, setMinLoan] = useState(0);
   const [payments, setPayments] = useState(0);
   useEffect(() => {
     // console.log("tax is ", tax);
@@ -127,13 +128,25 @@ export default function MortageCalaculator() {
     // console.log("mortage capacity is", BC);
     setPayments(BC);
 
-    const Loan = (12 / 0.0624) * (BC * (1 - Math.pow(1 + 0.0624 / 12, -360)));
+    const Loan = Math.round(
+      (12 / 0.0924) * (BC * (1 - Math.pow(1 + 0.0924 / 12, -360)))
+    );
+    const MP = Math.round(
+      (Loan * (0.0924 / 12)) / (1 - Math.pow(1 + 0.0924 / 12, -360))
+    );
+    console.log("payent hoo me", MP);
     // console.log("Im loan", Loan);
     setLoan(Loan);
     // const Loan = BC * 360;
     // const abc = Loan + Loan * 0.05;
     // console.log("loan is ", abc);
   }, [bCapacity]);
+
+  //Calculate minimum loan
+  useEffect(() => {
+    const MinLoan = loan - 0.3 * loan;
+    setMinLoan(MinLoan);
+  }, [loan]);
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -182,7 +195,7 @@ export default function MortageCalaculator() {
             marginX: "auto",
             backgroundColor: "#f8f8f8",
             maxWidth: "1200px",
-            minHeight: "500px",
+            // maxHeight: "500px",
             display: "flex",
             alignItems: "center",
           }}
@@ -254,7 +267,7 @@ export default function MortageCalaculator() {
                         <Grid
                           container
                           alignItems={"center"}
-                          sx={{ minHeight: "180px" }}
+                          sx={{ maxHeight: "180px" }}
                         >
                           <Grid
                             item
@@ -599,13 +612,23 @@ export default function MortageCalaculator() {
                                     </h2>
                                   </Grid>
                                   <Grid item sm={12} md={12} lg={6} pl={10}>
-                                    <Typography
+                                    <h2
+                                      style={{
+                                        fontWeight: "bolder",
+                                        fontSize: "26px",
+                                      }}
+                                    >
+                                      $ {minLoan?.toLocaleString()} - ${" "}
+                                      {loan?.toLocaleString()}{" "}
+                                    </h2>
+                                    {/* <Typography
                                       align="center"
                                       variant="h4"
                                       fontWeight={"bold"}
                                     >
-                                      $ {loan?.toLocaleString()}
-                                    </Typography>
+                                      $ {minLoan?.toLocaleString()} - ${" "}
+                                      {loan?.toLocaleString()}
+                                    </Typography> */}
                                   </Grid>
                                   <Grid container>
                                     <Grid
@@ -741,7 +764,7 @@ export default function MortageCalaculator() {
                                     p={3}
                                   >
                                     <p className="opacity-70">
-                                      Based on 6.24% standard variable rate over
+                                      Based on 9.24% standard variable rate over
                                       30 years.
                                     </p>
                                   </Grid>

@@ -135,6 +135,7 @@ export default function MortageCalaculator() {
       (Loan * (0.0924 / 12)) / (1 - Math.pow(1 + 0.0924 / 12, -360))
     );
     console.log("payent hoo me", MP);
+
     // console.log("Im loan", Loan);
     setLoan(Loan);
     // const Loan = BC * 360;
@@ -190,7 +191,7 @@ export default function MortageCalaculator() {
       >
         <Card
           sx={{
-            marginTop: 6,
+            marginTop: 2,
             borderRadius: 2,
             marginX: "auto",
             backgroundColor: "#f8f8f8",
@@ -275,13 +276,12 @@ export default function MortageCalaculator() {
                             xs={12}
                             sm={12}
                             md={12}
-                            mb={5}
                           >
                             <span
-                              style={{ fontWeight: "bolder", fontSize: "25px" }}
+                              style={{ fontWeight: "bolder", fontSize: "30px" }}
                               className="text-color"
                             >
-                              Mortage Calculator
+                              Borrowing power
                             </span>
                           </Grid>
                           <Grid
@@ -289,7 +289,7 @@ export default function MortageCalaculator() {
                             sm={12}
                             md={12}
                             mb={1}
-                            sx={{ fontSize: "20px" }}
+                            sx={{ fontSize: "18px" }}
                           >
                             The Loan for <span style={{ color: "red" }}>*</span>
                           </Grid>
@@ -373,6 +373,9 @@ export default function MortageCalaculator() {
                               Dependents
                             </InputLabel>
                             <Select
+                              sx={{
+                                fontSize: "18px",
+                              }}
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               name="dependents"
@@ -452,10 +455,10 @@ export default function MortageCalaculator() {
                             mb={5}
                           >
                             <span
-                              style={{ fontWeight: "bold", fontSize: "25px" }}
+                              style={{ fontWeight: "bolder", fontSize: "30px" }}
                               className="text-color"
                             >
-                              Mortage Calculator
+                              Borrowing power
                             </span>
                           </Grid>
                           <Grid
@@ -466,13 +469,13 @@ export default function MortageCalaculator() {
                             mb={1}
                             sx={{ fontSize: "20px" }}
                           >
-                            Gross Income <span style={{ color: "red" }}>*</span>
+                            Monthly income before tax{" "}
+                            <span style={{ color: "red" }}>*</span>
                           </Grid>
                           <Grid item xs={12} sm={12} md={12} mb={5.5}>
                             <Box sx={{ maxWidth: "100%" }}>
                               <FormControl
                                 sx={{
-                                  minWidth: "500px",
                                   "& .Mui-focused": {
                                     color: "#006875",
                                   },
@@ -483,12 +486,16 @@ export default function MortageCalaculator() {
                                   },
                                   m: 1,
                                 }}
+                                className="w-[100%] sm:w-[500px]"
                                 // fullWidth
                               >
                                 <InputLabel htmlFor="outlined-adornment-amount">
                                   Amount
                                 </InputLabel>
                                 <OutlinedInput
+                                  sx={{
+                                    fontSize: "18px",
+                                  }}
                                   id="income"
                                   type="number"
                                   {...formik2.getFieldProps("income")}
@@ -563,7 +570,7 @@ export default function MortageCalaculator() {
                                 display: "flex",
                                 justifyContent: "start",
                                 alignItems: "center",
-                                height: "350px",
+                                height: "300px",
                               }}
                             >
                               <Grid item sx={{ margin: "auto" }}>
@@ -578,18 +585,22 @@ export default function MortageCalaculator() {
                           <>
                             {loan < 0 ? (
                               <>
-                                <p>Sorry You Can not Borrow</p>
-                                <br />
-                                <p>We have not any plan for you</p>
-                                <br />
-                                <p>
-                                  For Further details You can Contact with{" "}
-                                  <span
-                                    style={{ color: "blue", cursor: "pointer" }}
-                                  >
-                                    abc@gmail.com
-                                  </span>{" "}
-                                </p>
+                                <Grid
+                                  container
+                                  sx={{
+                                    minHeight: "180px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                  }}
+                                >
+                                  <Grid item sx={{ margin: "auto" }}>
+                                    <p className="font-bold text-lg">
+                                      We were unable to calculate a borrowing
+                                      capacity for you based on the information
+                                      provided.
+                                    </p>
+                                  </Grid>
+                                </Grid>
                               </>
                             ) : (
                               <>
@@ -602,14 +613,14 @@ export default function MortageCalaculator() {
                                     pl={10}
                                     mb={5}
                                   >
-                                    <h2
+                                    <p
                                       style={{
                                         fontWeight: "bolder",
                                         fontSize: "26px",
                                       }}
                                     >
                                       You can Borrow up to
-                                    </h2>
+                                    </p>
                                   </Grid>
                                   <Grid item sm={12} md={12} lg={6} pl={10}>
                                     <h2

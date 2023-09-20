@@ -469,7 +469,7 @@ export default function MortageCalaculator() {
                             mb={1}
                             sx={{ fontSize: "20px" }}
                           >
-                            Monthly income before tax{" "}
+                            Annual income before tax{" "}
                             <span style={{ color: "red" }}>*</span>
                           </Grid>
                           <Grid item xs={12} sm={12} md={12} mb={5.5}>

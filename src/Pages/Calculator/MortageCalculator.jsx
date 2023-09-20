@@ -129,10 +129,10 @@ export default function MortageCalaculator() {
     setPayments(BC);
 
     const Loan = Math.round(
-      (12 / 0.0924) * (BC * (1 - Math.pow(1 + 0.0924 / 12, -360)))
+      (12 / 0.0584) * (BC * (1 - Math.pow(1 + 0.0584 / 12, -360)))
     );
     const MP = Math.round(
-      (Loan * (0.0924 / 12)) / (1 - Math.pow(1 + 0.0924 / 12, -360))
+      (Loan * (0.0584  / 12)) / (1 - Math.pow(1 + 0.0584 / 12, -360))
     );
     console.log("payent hoo me", MP);
 
@@ -777,8 +777,8 @@ export default function MortageCalaculator() {
                                     lg={12}
                                     p={3}
                                   >
-                                    <p className="opacity-70">
-                                      Based on 9.24% standard variable rate over
+                                    <p className="font-bold opacity-80">
+                                      Based on 5.84% standard variable rate over
                                       30 years.
                                     </p>
                                   </Grid>

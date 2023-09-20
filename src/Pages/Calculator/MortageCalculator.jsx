@@ -616,8 +616,7 @@ export default function MortageCalaculator() {
                                     <p
                                       style={{
                                         fontWeight: "bolder",
-                                        fontSize: "30px",
-                                        color:"#006875"
+                                        fontSize: "30px"
                                       }}
                                     >
                                       You can Borrow up to
@@ -628,7 +627,6 @@ export default function MortageCalaculator() {
                                       style={{
                                         fontWeight: "bolder",
                                         fontSize: "33px",
-                                        color:"#006875",
                                         letterSpacing: 1  
                                       }}
                                     >

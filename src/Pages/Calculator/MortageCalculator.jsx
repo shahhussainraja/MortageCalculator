@@ -151,7 +151,7 @@ export default function MortageCalaculator() {
     const MinLoan = loan - 0.3 * loan;
     setMinLoan(MinLoan);
     const text = (
-      <p style={{fontSize:'12px'}}>
+      <p style={{fontSize:'14px', padding:"4px"}}>  
         Important Information: Estimate is based on an annual household gross
         income of ${income}, household expenses are ${bCapacity} per month and a
         household with {form1?.dependents} occupant and includes any existing
@@ -651,17 +651,9 @@ export default function MortageCalaculator() {
                                         letterSpacing: 1,
                                       }}
                                     >
-                                      $ {minLoan?.toLocaleString()} - ${"  "}
-                                      {loan?.toLocaleString()}{" "}
+                                      $ {parseInt(minLoan).toLocaleString()} - ${"  "}
+                                      {parseInt(loan).toLocaleString()}{" "}
                                     </h2>
-                                    {/* <Typography
-                                      align="center"
-                                      variant="h4"
-                                      fontWeight={"bold"}
-                                    >
-                                      $ {minLoan?.toLocaleString()} - ${" "}
-                                      {loan?.toLocaleString()}
-                                    </Typography> */}
                                   </Grid>
                                   <Grid container>
                                     <Grid
@@ -716,9 +708,11 @@ export default function MortageCalaculator() {
                                       <p
                                         style={{
                                           fontSize: "18px",
+                                          display:"flex",
+                                          alignItems: "baseline",
                                         }}
                                       >
-                                        Expenses as per HEM
+                                        Expenses <p style={{fontSize:"13px",opacity:"70%",fontStyle:"italic",paddingLeft:"2px"}}>as per HEM</p>
                                       </p>
                                       <Box
                                         component="span"

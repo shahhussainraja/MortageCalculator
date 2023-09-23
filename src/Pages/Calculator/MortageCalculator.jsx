@@ -8,6 +8,7 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  Tooltip,
   useMediaQuery,
 } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -19,7 +20,7 @@ import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import * as React from "react";
 import * as Yup from "yup";
-import "./ToggleButton.css";
+import "./Button.css";
 import "./fonts.css";
 import Person2Icon from "@mui/icons-material/Person2";
 import WcIcon from "@mui/icons-material/Wc";
@@ -27,6 +28,7 @@ import { useState } from "react";
 import mortageCapacity from "../../utility/mortageCapacity";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import InfoIcon from "@mui/icons-material/Info";
 
 const steps = ["Personal Information", "Gross Income", "Borrow Capacity"];
 
@@ -45,6 +47,7 @@ export default function MortageCalaculator() {
   const [income, setInccome] = useState();
   const [bCapacity, setBCapacity] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [information, setInformation] = useState("Hello g");
 
   const [tax, setTax] = useState(0);
 
@@ -132,7 +135,7 @@ export default function MortageCalaculator() {
       (12 / 0.0584) * (BC * (1 - Math.pow(1 + 0.0584 / 12, -360)))
     );
     const MP = Math.round(
-      (Loan * (0.0584  / 12)) / (1 - Math.pow(1 + 0.0584 / 12, -360))
+      (Loan * (0.0584 / 12)) / (1 - Math.pow(1 + 0.0584 / 12, -360))
     );
     console.log("payent hoo me", MP);
 
@@ -147,6 +150,24 @@ export default function MortageCalaculator() {
   useEffect(() => {
     const MinLoan = loan - 0.3 * loan;
     setMinLoan(MinLoan);
+    const text = (
+      <p style={{fontSize:'12px'}}>
+        Important Information: Estimate is based on an annual household gross
+        income of ${income}, household expenses are ${bCapacity} per month and a
+        household with {form1?.dependents} occupant and includes any existing
+        lending. All financial figures provided are estimates only and do not
+        take into account your full financial situation. Nothing provided in
+        this tool constitutes financial advice and should not be taken as such.
+        These are not to be relied on as true indication of your borrowing
+        capacity, nor is it a quote or indication of pre-qualification for any
+        credit product. The estimate presented does not constitute financial
+        advice or a recommendation and is not intended to constitute an offer or
+        invitation in relation to the issue, sale or purchase of any financial
+        products
+      </p>
+    );
+
+    setInformation(text);
   }, [loan]);
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -236,7 +257,7 @@ export default function MortageCalaculator() {
                           },
                         }}
                       >
-                        {label}
+                        <h1>{label}</h1>
                       </StepLabel>
                     </Step>
                   );
@@ -616,7 +637,7 @@ export default function MortageCalaculator() {
                                     <p
                                       style={{
                                         fontWeight: "bolder",
-                                        fontSize: "28px"
+                                        fontSize: "28px",
                                       }}
                                     >
                                       You can Borrow up to
@@ -627,7 +648,7 @@ export default function MortageCalaculator() {
                                       style={{
                                         fontWeight: "bolder",
                                         fontSize: "28px",
-                                        letterSpacing: 1  
+                                        letterSpacing: 1,
                                       }}
                                     >
                                       $ {minLoan?.toLocaleString()} - ${"  "}
@@ -651,13 +672,13 @@ export default function MortageCalaculator() {
                                       lg={4}
                                       p={3}
                                     >
-                                      <Typography
-                                        sx={{
-                                          fontSize: "20px",
+                                      <p
+                                        style={{
+                                          fontSize: "18px",
                                         }}
                                       >
-                                        Payments
-                                      </Typography>
+                                        Expected re-payments
+                                      </p>
                                       <Box
                                         component="span"
                                         sx={{
@@ -679,7 +700,7 @@ export default function MortageCalaculator() {
                                         >
                                           •
                                         </Box>
-                                        <span className="text-xl">
+                                        <span className="text-lg">
                                           ${payments.toFixed(2)}/month
                                         </span>
                                       </Box>
@@ -692,13 +713,13 @@ export default function MortageCalaculator() {
                                       lg={4}
                                       p={3}
                                     >
-                                      <Typography
-                                        sx={{
-                                          fontSize: "20px",
+                                      <p
+                                        style={{
+                                          fontSize: "18px",
                                         }}
                                       >
-                                        Expenses
-                                      </Typography>
+                                        Expenses as per HEM
+                                      </p>
                                       <Box
                                         component="span"
                                         sx={{
@@ -720,7 +741,7 @@ export default function MortageCalaculator() {
                                         >
                                           •
                                         </Box>
-                                        <span className="text-xl">
+                                        <span className="text-lg">
                                           ${bCapacity}
                                         </span>
                                       </Box>
@@ -733,13 +754,13 @@ export default function MortageCalaculator() {
                                       lg={4}
                                       p={3}
                                     >
-                                      <Typography
-                                        sx={{
-                                          fontSize: "20px",
+                                      <p
+                                        style={{
+                                          fontSize: "18px",
                                         }}
                                       >
-                                        Duration
-                                      </Typography>
+                                        Duration of the loan
+                                      </p>
                                       <Box
                                         component="span"
                                         sx={{
@@ -761,7 +782,7 @@ export default function MortageCalaculator() {
                                         >
                                           •
                                         </Box>
-                                        <span className="text-xl">
+                                        <span className="text-lg">
                                           360 Months
                                         </span>
                                       </Box>
@@ -769,6 +790,7 @@ export default function MortageCalaculator() {
                                   </Grid>
                                   <Grid
                                     item
+                                    display={"flex"}
                                     xs={12}
                                     sm={12}
                                     md={6}
@@ -779,6 +801,12 @@ export default function MortageCalaculator() {
                                       Based on 5.84% standard variable rate over
                                       30 years.
                                     </p>
+
+                                    <Tooltip title={information} arrow>
+                                      <div className="icon-container">
+                                        <InfoIcon color="#7D7C7C" />
+                                      </div>
+                                    </Tooltip>
                                   </Grid>
                                 </Grid>
                               </>

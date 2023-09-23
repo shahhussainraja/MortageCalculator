@@ -22,3 +22,28 @@
     color: #fff; /* Text color for the active button */
   }
   
+
+
+/* Styles for the icon container */
+.icon-container {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out; 
+  color: #4c4e4e;
+}
+
+/* Hover effect */
+.icon-container:hover {
+  color: #6b6d6d;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+/* Tooltip or popup */
+.MuiTooltip-tooltip {
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  min-width: 350px;
+  font-size: 12px;
+  padding: 8px 12px;
+}

@@ -631,16 +631,16 @@ export default function MortageCalaculator() {
                                     sm={12}
                                     md={12}
                                     lg={6}
-                                    pl={10}
+                                    pl={5}
                                     mb={5}
                                   >
                                     <p
                                       style={{
                                         fontWeight: "bolder",
-                                        fontSize: "28px",
+                                        fontSize: "22px",
                                       }}
                                     >
-                                      You can Borrow up to
+                                    Your estimated borrowing capacity is
                                     </p>
                                   </Grid>
                                   <Grid item sm={12} md={12} lg={6} pl={10}>
